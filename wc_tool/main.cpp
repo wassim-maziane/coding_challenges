@@ -85,19 +85,27 @@ int main(int argc, char *argv[]) {
   int WCount, LCount, CCount;
   streamsize size;
 
+  if (argc == 1) {
+    cerr << "Usage : wctool [flag] <filename>";
+    return 1;
+  }
+
   filename = argv[1];
   if (argc == 2) {
-    size = byteCount(filename);
-    WCount = wordCount(filename);
-    LCount = lineCount(filename);
-    if (size == -1 || WCount == -1 || LCount == -1) {
-      {
-        cout << "Failed to open file" << '\n';
-        return -1;
+    if (filename[0] != '-') {
+      size = byteCount(filename);
+      WCount = wordCount(filename);
+      LCount = lineCount(filename);
+      if (size == -1 || WCount == -1 || LCount == -1) {
+        {
+          cout << "Failed to open file" << '\n';
+          return -1;
+        }
+      } else {
+        cout << LCount << ' ' << WCount << ' ' << size << ' ' << filename
+             << '\n';
+        return 0;
       }
-    } else {
-      cout << LCount << ' ' << WCount << ' ' << size << ' ' << filename << '\n';
-      return 0;
     }
   }
 

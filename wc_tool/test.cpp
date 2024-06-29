@@ -4,13 +4,13 @@
 #include <iostream>
 using namespace std;
 int main() {
-  setlocale(LC_CTYPE, "C.utf8");
   int count = 0;
-  FILE *fp = fopen("test.txt", "r");
-  wchar_t ch = fgetwc(fp);
-  while (ch != WEOF) {
+  wifstream file("test.txt");
+  file.imbue(locale("en_US.UTF-8"));
+  wchar_t ch;
+  while (file >> ch) {
     count++;
-    ch = fgetwc(fp);
   }
+  file.close();
   cout << count;
 }
