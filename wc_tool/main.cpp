@@ -110,8 +110,12 @@ int main(int argc, char *argv[]) {
   string filename;
   int WCount, LCount, CCount;
   streamsize size;
-
-  if (argc == 1) {
+  try {
+    filename = args.at(1);
+  } catch (const out_of_range &e) {
+    filename = "";
+  }
+  if (argc <= 2 && filename[0] != '-') {
     WCount = wordCount(filename);
     LCount = lineCount(filename);
     size = byteCount(filename);
